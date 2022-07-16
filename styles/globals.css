@@ -1,16 +1,27 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
+@layer base {
+  h1 {
+    @apply text-7xl;
+    @apply font-black;
+    @apply tracking-tight;
+  }
+  h2 {
+    @apply text-3xl;
+    @apply font-bold;
+    @apply tracking-tight;
+  }
+  h3 {
+    @apply text-base;
+    @apply font-mono;
+    @apply tracking-wider;
+    @apply uppercase;
+  }
+  h4 {
+    @apply text-base;
+    @apply font-bold;
+    @apply tracking-tight;
+  }
 }

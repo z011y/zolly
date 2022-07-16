@@ -1,0 +1,31 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Company {
+  id          Int        @default(autoincrement()) @id
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  name        String     @db.VarChar(255)
+  startDate   DateTime   @db.Date
+  endDate     DateTime   @db.Date
+  roles       Json?      @db.Json
+  Project     Project[]
+
+  @@unique([name])
+}
+
+model Project {
+  id          Int        @default(autoincrement()) @id
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  name        String     @db.VarChar(255)
+  techStack   Json       @db.Json
+  companyName String?    @db.VarChar(25)
+  company     Company?   @relation(fields: [companyName], references: [name])
+}
