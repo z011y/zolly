@@ -25,6 +25,7 @@ export default function Header() {
           <a
             href="https://github.com/z011y"
             target="_blank"
+            rel="noreferrer"
             className="hover:cursor-pointer"
           >
             <MarkGithubIcon />

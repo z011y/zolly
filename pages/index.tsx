@@ -72,8 +72,13 @@ export default function Home({
             <p className="opacity-60">Hi, my name is</p>
             <h1>Cameron Zollinger</h1>
             <span className="flex gap-x-1">
-              <p className="opacity-60">I'm a Tech Lead at </p>
-              <a href="https://award.co" target="_blank" className="text-blue">
+              <p className="opacity-60">I&apos;m a Tech Lead at </p>
+              <a
+                href="https://award.co"
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue"
+              >
                 Awardco
               </a>
             </span>
@@ -106,7 +111,7 @@ export default function Home({
         </section>
         {/* Skills */}
         <section id="skills" className="pt-28 pb-16">
-          <h3 className="ml-16">Some things I'm good at</h3>
+          <h3 className="ml-16">Some things I&apos;m good at</h3>
           <div className="flex gap-x-4 my-4 px-8 lg:px-16 overflow-x-scroll scrollbar-hidden">
             <Badge text="Test Automation" icon={<Icons.DependabotIcon />} />
             <Badge text="Debugging" icon={<Icons.BugIcon />} />
@@ -122,7 +127,7 @@ export default function Home({
               icon={<Icons.CommentDiscussionIcon />}
             />
           </div>
-          <h3 className="ml-16">Some things I'm learning</h3>
+          <h3 className="ml-16">Some things I&apos;m learning</h3>
           <div className="flex gap-x-4 my-4 px-8 lg:px-16 overflow-x-scroll scrollbar-hidden">
             <Badge text="User Research" icon={<Icons.PersonIcon />} />
             <Badge text="Sprint Planning" icon={<Icons.TelescopeIcon />} />
