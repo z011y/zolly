@@ -12,9 +12,9 @@ model Company {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   name        String     @db.VarChar(255)
-  startDate   DateTime   @db.Date
-  endDate     DateTime   @db.Date
-  roles       Json?      @db.Json
+  startDate   String     @db.VarChar(25)
+  endDate     String     @db.VarChar(25)
+  roles       Json       @db.Json
   Project     Project[]
 
   @@unique([name])
@@ -26,6 +26,8 @@ model Project {
   updatedAt   DateTime   @updatedAt
   name        String     @db.VarChar(255)
   techStack   Json       @db.Json
+  role        String     @db.VarChar(255)
+  description String?    @db.VarChar(255)
   companyName String?    @db.VarChar(25)
   company     Company?   @relation(fields: [companyName], references: [name])
 }

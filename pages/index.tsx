@@ -1,12 +1,13 @@
 import type { NextPage, GetStaticProps, InferGetStaticPropsType } from "next";
 import Head from "next/head";
-import Image from "next/image";
+import { useState } from "react";
 import { PrismaClient } from "@prisma/client";
 import * as Icons from "@primer/octicons-react";
 
 import Header from "../components/Header";
 import Badge from "../components/Badge";
-import Company from "../components/Company";
+import CompanySection from "../components/Company";
+import ProjectCard from "../components/ProjectCard";
 
 export async function getStaticProps() {
   const prisma = new PrismaClient();
@@ -25,23 +26,43 @@ export default function Home({
   companies,
   projects,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const [focusedProject, setFocusedProject] = useState(0);
+
   const renderCompanies = () => {
+    // sort companies by startDate newest to oldest
+    companies.sort((a, b): number => {
+      const dateA = new Date(a.startDate);
+      const dateB = new Date(b.startDate);
+      return Number(dateB) - Number(dateA);
+    });
+
     const companyComponents = companies.map((company) => {
-      return <Company name={company.name} roles={company.roles} />;
+      return (
+        <CompanySection
+          key={company.id}
+          company={company}
+          projects={projects}
+          focusProject={setFocusedProject}
+        />
+      );
     });
     return companyComponents;
   };
+
+  function renderProjects() {
+    const projectComponents = projects.map((project) => {
+      const isFocused = focusedProject === project.id;
+      return (
+        <ProjectCard key={project.id} project={project} isFocused={isFocused} />
+      );
+    });
+    return projectComponents;
+  }
 
   return (
     <div>
       <Head>
         <title>Zolly (Cameron Zollinger)</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;700;900&display=swap"
-          rel="stylesheet"
-        />
       </Head>
       <Header></Header>
       <main className="w-full flex flex-col justify-center">
@@ -57,33 +78,36 @@ export default function Home({
               </a>
             </span>
           </div>
-          <div className="flex justify-between gap-x-8 bg-gray-100 dark:bg-gray-1100 rounded-2xl mt-16 mx-16 p-8">
+          <div className="flex flex-col lg:flex-row justify-between gap-y-8 lg:gap-x-8 bg-gray-100 dark:bg-gray-1100 rounded-2xl mt-16 mx-8 lg:mx-16 p-8">
             <div className="flex items-center gap-x-4">
               <Icons.CodeIcon size="medium" />
-              <h2>Software Engineer</h2>
+              <h2>Engineer</h2>
             </div>
             <div className="flex items-center gap-x-4 opacity-60">
               <Icons.DependabotIcon size="medium" />
-              <h2>Automation Expert</h2>
+              <h2>Automator</h2>
             </div>
             <div className="flex items-center gap-x-4 opacity-30">
               <Icons.PencilIcon size="medium" />
-              <h2>Design Enthusiast</h2>
+              <h2>Designer?</h2>
             </div>
           </div>
         </section>
         {/* Career */}
-        <section id="career" className="pt-28">
+        <section id="career" className="pt-28 flex flex-col items-center">
           {renderCompanies()}
         </section>
         {/* Projects */}
-        <section id="projects" className="pt-28">
-          <h2 className="pl-16">Projects</h2>
+        <section
+          id="projects"
+          className="pt-28 px-8 lg:px-16 grid grid-cols-1 lg:grid-cols-2 gap-4"
+        >
+          {renderProjects()}
         </section>
         {/* Skills */}
         <section id="skills" className="pt-28 pb-16">
           <h3 className="ml-16">Some things I'm good at</h3>
-          <div className="flex gap-x-4 my-4 pr-16 pl-16 overflow-x-scroll scrollbar-hidden">
+          <div className="flex gap-x-4 my-4 px-8 lg:px-16 overflow-x-scroll scrollbar-hidden">
             <Badge text="Test Automation" icon={<Icons.DependabotIcon />} />
             <Badge text="Debugging" icon={<Icons.BugIcon />} />
             <Badge
@@ -99,7 +123,7 @@ export default function Home({
             />
           </div>
           <h3 className="ml-16">Some things I'm learning</h3>
-          <div className="flex gap-x-4 my-4 pr-16 pl-16 overflow-x-scroll scrollbar-hidden">
+          <div className="flex gap-x-4 my-4 px-8 lg:px-16 overflow-x-scroll scrollbar-hidden">
             <Badge text="User Research" icon={<Icons.PersonIcon />} />
             <Badge text="Sprint Planning" icon={<Icons.TelescopeIcon />} />
             <Badge
@@ -113,7 +137,7 @@ export default function Home({
             />
           </div>
           <h3 className="ml-16">Some technologies I like to use</h3>
-          <div className="flex gap-x-4 my-4 pr-16 pl-16 overflow-x-scroll scrollbar-hidden">
+          <div className="flex gap-x-4 my-4 px-8 lg:px-16 overflow-x-scroll scrollbar-hidden">
             <Badge text="TypeScript" icon={<Icons.DependabotIcon />} />
             <Badge text="React" icon={<Icons.BugIcon />} />
             <Badge text="Next" icon={<Icons.CommentDiscussionIcon />} />

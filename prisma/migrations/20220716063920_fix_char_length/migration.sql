@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Project" ALTER COLUMN "role" SET DATA TYPE VARCHAR(255);

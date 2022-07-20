@@ -11,7 +11,7 @@ export default function Header() {
 
   return (
     <header className="w-full fixed top-0 flex flex-col bg-white/75 dark:bg-black/75 backdrop-blur-lg saturate-150 pt-8 z-50">
-      <div className="flex justify-between border-b border-gray-200 dark:border-gray-1000 pb-4 px-16">
+      <div className="flex justify-between border-b border-gray-200 dark:border-gray-1000 pb-4 px-8 lg:px-16">
         <div className="flex gap-x-2">
           <Logo
             fillColor={theme.color === "dark" ? "#1C1C1E" : "#F2F2F7"}
