@@ -1,10 +1,8 @@
-import * as Icons from "@primer/octicons-react";
-import { Icon } from "@primer/octicons-react";
 import { ReactElement } from "react";
 
 interface Props {
-  text: string;
-  icon: ReactElement;
+  text?: string;
+  icon?: ReactElement;
 }
 
 export default function Badge({ text, icon }: Props) {

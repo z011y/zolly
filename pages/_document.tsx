@@ -12,6 +12,20 @@ export default function Document() {
         />
       </Head>
       <body className="bg-white text-black dark:bg-black dark:text-white">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            (() => {
+              const storedTheme = localStorage.getItem("theme");
+              const currentTheme = storedTheme ? storedTheme : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+              if (currentTheme === "dark") {
+                document.documentElement.classList.add("dark");
+              }
+              localStorage.setItem("theme", currentTheme);
+            })()
+            `,
+          }}
+        />
         <Main />
         <NextScript />
       </body>

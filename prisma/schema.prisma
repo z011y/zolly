@@ -14,8 +14,8 @@ model Company {
   name        String     @db.VarChar(255)
   startDate   String     @db.VarChar(25)
   endDate     String     @db.VarChar(25)
-  roles       Json       @db.Json
   Project     Project[]
+  Title       Title[]
 
   @@unique([name])
 }
@@ -26,8 +26,22 @@ model Project {
   updatedAt   DateTime   @updatedAt
   name        String     @db.VarChar(255)
   techStack   Json       @db.Json
-  role        String     @db.VarChar(255)
   description String?    @db.VarChar(255)
   companyName String?    @db.VarChar(25)
   company     Company?   @relation(fields: [companyName], references: [name])
+  titleName   String?    @db.VarChar(255)
+  title       Title?   @relation(fields: [titleName], references: [name])
+}
+
+model Title {
+  id          Int        @default(autoincrement()) @id
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  name        String     @db.VarChar(255)
+  roles       Json       @db.Json
+  companyName String?    @db.VarChar(25)
+  company     Company?   @relation(fields: [companyName], references: [name])
+  Project     Project[]
+
+  @@unique([name])
 }

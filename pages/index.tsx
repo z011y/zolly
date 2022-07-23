@@ -6,7 +6,7 @@ import * as Icons from "@primer/octicons-react";
 
 import Header from "../components/Header";
 import Badge from "../components/Badge";
-import CompanySection from "../components/Company";
+import CompanySection from "../components/CompanySection";
 import ProjectCard from "../components/ProjectCard";
 
 export async function getStaticProps() {
@@ -14,17 +14,20 @@ export async function getStaticProps() {
 
   let companies = await prisma.company.findMany();
   let projects = await prisma.project.findMany();
+  let titles = await prisma.title.findMany();
   companies = JSON.parse(JSON.stringify(companies));
   projects = JSON.parse(JSON.stringify(projects));
+  titles = JSON.parse(JSON.stringify(titles));
 
   return {
-    props: { companies, projects },
+    props: { companies, projects, titles },
   };
 }
 
 export default function Home({
   companies,
   projects,
+  titles,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [focusedProject, setFocusedProject] = useState(0);
 
@@ -42,6 +45,7 @@ export default function Home({
           key={company.id}
           company={company}
           projects={projects}
+          titles={titles}
           focusProject={setFocusedProject}
         />
       );
@@ -143,12 +147,14 @@ export default function Home({
           </div>
           <h3 className="ml-16">Some technologies I like to use</h3>
           <div className="flex gap-x-4 my-4 px-8 lg:px-16 overflow-x-scroll scrollbar-hidden">
-            <Badge text="TypeScript" icon={<Icons.DependabotIcon />} />
-            <Badge text="React" icon={<Icons.BugIcon />} />
-            <Badge text="Next" icon={<Icons.CommentDiscussionIcon />} />
-            <Badge text="Cypress" icon={<Icons.LogIcon />} />
-            <Badge text="Postgres" icon={<Icons.CodeIcon />} />
-            <Badge text="Prisma" icon={<Icons.PaintbrushIcon />} />
+            <Badge text="JavaScript" />
+            <Badge text="TypeScript" />
+            <Badge text="React" />
+            <Badge text="Next" />
+            <Badge text="Node" />
+            <Badge text="Cypress" />
+            <Badge text="Postgres" />
+            <Badge text="Prisma" />
           </div>
         </section>
       </main>

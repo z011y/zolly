@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { MarkGithubIcon } from "@primer/octicons-react";
 
-import Logo from "./Logo";
+import LogoIcon from "./LogoIcon";
 import LogoText from "./LogoText";
 import ThemeToggle from "./ThemeToggle";
-import { ThemeContext } from "../pages/_app";
+import { ThemeContext } from "../context/ThemeContext";
 
 export default function Header() {
   const theme = useContext(ThemeContext);
@@ -13,15 +13,11 @@ export default function Header() {
     <header className="w-full fixed top-0 flex flex-col bg-white/75 dark:bg-black/75 backdrop-blur-lg saturate-150 pt-8 z-50">
       <div className="flex justify-between border-b border-gray-200 dark:border-gray-1000 pb-4 px-8 lg:px-16">
         <div className="flex gap-x-2">
-          <Logo
-            fillColor={theme.color === "dark" ? "#1C1C1E" : "#F2F2F7"}
-            strokeColor={theme.color === "dark" ? "#2C2C2E" : "#E5E5EA"}
-            primaryColor={theme.color === "dark" ? "#0A84FF" : "#007AFF"}
-          />
+          <LogoIcon />
           <LogoText />
         </div>
         <div className="flex gap-x-4">
-          <ThemeToggle />
+          {theme.color ? <ThemeToggle /> : null}
           <a
             href="https://github.com/z011y"
             target="_blank"

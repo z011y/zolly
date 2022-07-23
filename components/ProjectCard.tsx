@@ -1,5 +1,7 @@
-import { Project } from ".prisma/client";
+import { Prisma, Project } from ".prisma/client";
 import * as Icons from "@primer/octicons-react";
+
+import Badge from "./Badge";
 
 interface ProjectCardProps {
   project: Project;
@@ -7,6 +9,40 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, isFocused }: ProjectCardProps) {
+  const renderLanguages = () => {
+    if (project.techStack && typeof project.techStack === "object") {
+      const techStackObject = project.techStack as Prisma.JsonObject;
+      const languages = techStackObject["languages"];
+      if (
+        languages &&
+        typeof languages === "object" &&
+        Array.isArray(languages)
+      ) {
+        const languageComponents = languages.map((language) => {
+          return <Badge text={language?.toString()} />;
+        });
+        return languageComponents;
+      }
+    }
+  };
+
+  const renderFrameworks = () => {
+    if (project.techStack && typeof project.techStack === "object") {
+      const techStackObject = project.techStack as Prisma.JsonObject;
+      const frameworks = techStackObject["frameworks"];
+      if (
+        frameworks &&
+        typeof frameworks === "object" &&
+        Array.isArray(frameworks)
+      ) {
+        const frameworkComponents = frameworks.map((framework) => {
+          return <Badge text={framework?.toString()} />;
+        });
+        return frameworkComponents;
+      }
+    }
+  };
+
   return (
     <div
       id={project.id.toString()}
@@ -22,11 +58,15 @@ export default function ProjectCard({ project, isFocused }: ProjectCardProps) {
       <h2>{project.name}</h2>
       <div className="flex items-center gap-x-2">
         <Icons.MilestoneIcon />
-        <a className="text-blue" href="#career">
-          {project.role}
+        <a className="text-blue" href={`#${project.titleName}`}>
+          {project.titleName}
         </a>
       </div>
-      <p>{project.description}</p>
+      <p className="opacity-60">{project.description}</p>
+      <h3>languages</h3>
+      <div className="flex gap-x-4 overflow-scroll">{renderLanguages()}</div>
+      <h3>frameworks</h3>
+      <div className="flex gap-x-4 overflow-scroll">{renderFrameworks()}</div>
     </div>
   );
 }

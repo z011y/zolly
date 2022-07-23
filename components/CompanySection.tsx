@@ -1,54 +1,75 @@
-import { Prisma, Company, Project } from ".prisma/client";
+import { Prisma, Company, Project, Title } from ".prisma/client";
 import * as Icons from "@primer/octicons-react";
 
 interface CompanySectionProps {
   company: Company;
   projects: Project[];
+  titles: Title[];
   focusProject: (projectName: number) => void;
 }
 
 export default function CompanySection({
   company,
   projects,
+  titles,
   focusProject,
 }: CompanySectionProps) {
-  const renderRoles = () => {
-    if (company.roles && typeof company.roles === "object") {
-      const roleComponents = Object.keys(company.roles).map(
-        (role: string, i: number) => {
-          const filteredProjects = projects.filter(
-            (project) => project.role === role
-          );
+  const renderTitles = () => {
+    const filteredTitles = titles.filter(
+      (title) => title.companyName === company.name
+    );
+    const titleComponents = filteredTitles.map((title: Title, i: number) => {
+      if (
+        title.roles &&
+        typeof title.roles === "object" &&
+        !Array.isArray(title.roles)
+      ) {
+        const rolesObject = title.roles as Prisma.JsonObject;
+        const responsibilities = rolesObject["responsibilities"];
+        const filteredProjects = projects.filter(
+          (project) => project.titleName === title.name
+        );
+        if (
+          responsibilities &&
+          typeof responsibilities === "object" &&
+          Array.isArray(responsibilities)
+        ) {
           return (
-            <div key={i}>
+            <div key={i} id={title.name}>
               <div className="flex items-center gap-x-4 my-4">
                 <div className="p-2 w-8 flex justify-center items-center rounded-full bg-gray-100 dark:bg-gray-1100">
                   <Icons.MilestoneIcon />
                 </div>
-                <h3>{role}</h3>
+                <h3>{title.name}</h3>
               </div>
               <div className="mb-4 ml-4 pl-4 border-l border-gray-200 dark:border-gray-1000">
-                <ul className="opacity-60">{renderListItems(role)}</ul>
+                <ul className="opacity-60">
+                  {renderListItems(responsibilities)}
+                </ul>
                 <div className="flex flex-col">
-                  {renderProjects(filteredProjects, role)}
+                  {renderProjects(filteredProjects, title.name)}
                 </div>
               </div>
             </div>
           );
         }
-      );
-      return roleComponents;
-    }
+      }
+    });
+
+    return titleComponents;
   };
 
-  const renderListItems = (role: string) => {
-    if (company.roles && typeof company.roles === "object") {
-      const rolesObject = company.roles as Prisma.JsonObject;
-      const listItems = rolesObject[role].map(
-        (responsibility: string, i: number) => {
+  const renderListItems = (responsibilities: Prisma.JsonArray) => {
+    if (
+      responsibilities &&
+      typeof responsibilities === "object" &&
+      Array.isArray(responsibilities)
+    ) {
+      const listItems = responsibilities.map(
+        (responsibility: Prisma.JsonValue, i: number) => {
           return (
             <li key={i} className="my-2">
-              {responsibility}
+              {responsibility?.toString()}
             </li>
           );
         }
@@ -81,7 +102,7 @@ export default function CompanySection({
         <h2>{company.name}</h2>
         <p className="text-sm opacity-60">{`${company.startDate} - ${company.endDate}`}</p>
       </div>
-      {renderRoles()}
+      {renderTitles()}
     </div>
   );
 }
