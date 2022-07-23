@@ -79,20 +79,22 @@ export default function CompanySection({
   };
 
   const renderProjects = (filteredProjects: Project[], role: string) => {
-    const projectComponents = filteredProjects.map((project) => {
-      return (
-        <div key={project.id} className="flex items-center gap-x-2">
-          <Icons.PackageIcon />
-          <a
-            className="text-blue"
-            href="#projects"
-            onClick={() => focusProject(project.id)}
-          >
-            {project.name}
-          </a>
-        </div>
-      );
-    });
+    const projectComponents = filteredProjects.map(
+      (project: Project, i: number) => {
+        return (
+          <div key={i} className="flex items-center gap-x-2">
+            <Icons.PackageIcon />
+            <a
+              className="text-blue"
+              href="#projects"
+              onClick={() => focusProject(project.id)}
+            >
+              {project.name}
+            </a>
+          </div>
+        );
+      }
+    );
     return projectComponents;
   };
 

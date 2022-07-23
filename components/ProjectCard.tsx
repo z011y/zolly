@@ -18,9 +18,11 @@ export default function ProjectCard({ project, isFocused }: ProjectCardProps) {
         typeof languages === "object" &&
         Array.isArray(languages)
       ) {
-        const languageComponents = languages.map((language) => {
-          return <Badge text={language?.toString()} />;
-        });
+        const languageComponents = languages.map(
+          (language: Prisma.JsonValue, i: number) => {
+            return <Badge key={i} text={language?.toString()} />;
+          }
+        );
         return languageComponents;
       }
     }
@@ -35,9 +37,11 @@ export default function ProjectCard({ project, isFocused }: ProjectCardProps) {
         typeof frameworks === "object" &&
         Array.isArray(frameworks)
       ) {
-        const frameworkComponents = frameworks.map((framework) => {
-          return <Badge text={framework?.toString()} />;
-        });
+        const frameworkComponents = frameworks.map(
+          (framework: Prisma.JsonValue, i: number) => {
+            return <Badge key={i} text={framework?.toString()} />;
+          }
+        );
         return frameworkComponents;
       }
     }
