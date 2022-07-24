@@ -18,6 +18,8 @@ export default function CompanySection({
     const filteredTitles = titles.filter(
       (title) => title.companyName === company.name
     );
+    const firstTitle = filteredTitles.pop();
+    firstTitle ? filteredTitles.unshift(firstTitle) : null;
     const titleComponents = filteredTitles.map((title: Title, i: number) => {
       if (
         title.roles &&
