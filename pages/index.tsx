@@ -87,7 +87,7 @@ export default function Home({
               </a>
             </span>
           </div>
-          <div className="flex flex-col lg:flex-row justify-between gap-y-8 lg:gap-x-8 bg-gray-100 dark:bg-gray-1100 rounded-2xl mt-16 mx-8 lg:mx-16 p-8">
+          <div className="flex flex-col lg:flex-row justify-between gap-y-8 lg:gap-x-8 bg-gray-100 dark:bg-gray-1100 rounded-2xl mt-16 mx-4 lg:mx-16 p-8">
             <div className="flex items-center gap-x-4">
               <Icons.CodeIcon size="medium" />
               <h2>Engineer</h2>
@@ -109,14 +109,14 @@ export default function Home({
         {/* Projects */}
         <section
           id="projects"
-          className="pt-28 px-8 lg:px-16 grid grid-cols-1 lg:grid-cols-2 gap-4"
+          className="pt-28 px-4 lg:px-16 grid grid-cols-1 lg:grid-cols-2 gap-4"
         >
           {renderProjects()}
         </section>
         {/* Skills */}
         <section id="skills" className="pt-28 pb-16">
-          <h3 className="ml-16">Some things I&apos;m good at</h3>
-          <div className="flex gap-x-4 my-4 px-8 lg:px-16 overflow-x-scroll scrollbar-hidden">
+          <h3 className="ml-4 lg:ml-16">Some things I&apos;m good at</h3>
+          <div className="flex gap-x-4 my-4 px-4 lg:px-16 overflow-x-scroll scrollbar-hidden">
             <Badge text="Test Automation" icon={<Icons.DependabotIcon />} />
             <Badge text="Debugging" icon={<Icons.BugIcon />} />
             <Badge
@@ -131,8 +131,8 @@ export default function Home({
               icon={<Icons.CommentDiscussionIcon />}
             />
           </div>
-          <h3 className="ml-16">Some things I&apos;m learning</h3>
-          <div className="flex gap-x-4 my-4 px-8 lg:px-16 overflow-x-scroll scrollbar-hidden">
+          <h3 className="ml-4 lg:ml-16">Some things I&apos;m learning</h3>
+          <div className="flex gap-x-4 my-4 px-4 lg:px-16 overflow-x-scroll scrollbar-hidden">
             <Badge text="User Research" icon={<Icons.PersonIcon />} />
             <Badge text="Sprint Planning" icon={<Icons.TelescopeIcon />} />
             <Badge
@@ -145,8 +145,8 @@ export default function Home({
               icon={<Icons.CpuIcon />}
             />
           </div>
-          <h3 className="ml-16">Some technologies I like to use</h3>
-          <div className="flex gap-x-4 my-4 px-8 lg:px-16 overflow-x-scroll scrollbar-hidden">
+          <h3 className="ml-4 lg:ml-16">Some technologies I like to use</h3>
+          <div className="flex gap-x-4 my-4 px-4 lg:px-16 overflow-x-scroll scrollbar-hidden">
             <Badge text="JavaScript" />
             <Badge text="TypeScript" />
             <Badge text="React" />
