@@ -43,6 +43,8 @@ export default function ProjectCard({ project, isFocused }: ProjectCardProps) {
           }
         );
         return frameworkComponents;
+      } else {
+        return <h4>None</h4>;
       }
     }
   };
@@ -60,12 +62,14 @@ export default function ProjectCard({ project, isFocused }: ProjectCardProps) {
       </div>
 
       <h2>{project.name}</h2>
-      <div className="flex items-center gap-x-2">
-        <Icons.MilestoneIcon />
-        <a className="text-blue" href={`#${project.titleName}`}>
-          {project.titleName}
-        </a>
-      </div>
+      {project.titleName ? (
+        <div className="flex items-center gap-x-2">
+          <Icons.MilestoneIcon />
+          <a className="text-blue" href={`#${project.titleName}`}>
+            {project.titleName}
+          </a>
+        </div>
+      ) : null}
       <p className="opacity-60">{project.description}</p>
       <h3>languages</h3>
       <div className="flex gap-x-4 overflow-scroll">{renderLanguages()}</div>
