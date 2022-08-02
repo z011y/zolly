@@ -39,6 +39,8 @@ model Title {
   updatedAt   DateTime   @updatedAt
   name        String     @db.VarChar(255)
   roles       Json       @db.Json
+  startDate   String?    @db.VarChar(25)
+  endDate     String?    @db.VarChar(25)
   companyName String?    @db.VarChar(25)
   company     Company?   @relation(fields: [companyName], references: [name])
   Project     Project[]
