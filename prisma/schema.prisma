@@ -30,7 +30,7 @@ model Project {
   companyName String?    @db.VarChar(25)
   company     Company?   @relation(fields: [companyName], references: [name])
   titleName   String?    @db.VarChar(255)
-  title       Title?   @relation(fields: [titleName], references: [name])
+  title       Title?     @relation(fields: [titleName], references: [name])
 }
 
 model Title {
